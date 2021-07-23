@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Spartan' rel='stylesheet' type='text/css'>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+
+<style>
+    :root {
+        --border: 3.8px solid white;
+        --backgroundcolor: #F8E7EA;
+        --containercolor: white;
+    }
+
+    .modal {
+        text-align: -webkit-center;
+        display: none;
+        /* Hidden by default */
+        position: fixed;
+        /* Stay in place */
+        z-index: 1;
+        /* Sit on top */
+        padding-top: 100px;
+        /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%;
+        /* Full width */
+        height: 100%;
+        /* Full height */
+        overflow: auto;
+        /* Enable scroll if needed */
+        background-color: rgb(0, 0, 0);
+        /* Fallback color */
+        background-color: rgba(0, 0, 0, 0.9);
+        /* Black w/ opacity */
+    }
+
+    /* Modal Content (image) */
+    .modal-content {
+        margin: auto;
+        display: block;
+        width: 80%;
+        max-width: 700px;
+    }
+
+    /* Caption of Modal Image */
+    .caption {
+        margin: auto;
+        display: block;
+        width: 80%;
+        max-width: 700px;
+        text-align: center;
+        color: #ccc;
+        padding: 10px 0;
+        height: 150px;
+    }
+
+    /* Add Animation */
+    .modal-content,
+    .caption {
+        -webkit-animation-name: zoom;
+        -webkit-animation-duration: 0.6s;
+        animation-name: zoom;
+        animation-duration: 0.6s;
+    }
+
+    @-webkit-keyframes zoom {
+        from {
+            -webkit-transform: scale(0)
+        }
+
+        to {
+            -webkit-transform: scale(1)
+        }
+    }
+
+    @keyframes zoom {
+        from {
+            transform: scale(0)
+        }
+
+        to {
+            transform: scale(1)
+        }
+    }
+
+    /* The Close Button */
+    .close {
+        position: absolute;
+        top: 15px;
+        right: 35px;
+        color: #f1f1f1;
+        font-size: 40px;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+
+    .save {
+        position: absolute;
+        top: 15px;
+        right: 60px;
+        color: #f1f1f1;
+        font-size: 40px;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+
+
+    .close:hover,
+    .close:focus,
+    .save:hover,
+    .save:focus {
+        color: #bbb;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    body {
+        font-family: 'Spartan', sans-serif;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    .days {
+        background-color: blue;
+        padding: 8px;
+        color: white;
+        letter-spacing: 3px;
+        font-weight: bold;
+        font-size: 17px;
+
+    }
+
+    .days,
+    h2 {
+        text-align: center;
+    }
+
+
+    .cell-last {
+        border: none;
+    }
+
+    .cell-top {
+
+        border-top: var(--border);
+    }
+
+    .button {
+        /* butonları uzaklaştırıyor margin: 10px; */
+        box-shadow: 0px white;
+        font-size: 30px;
+        background-color: #363f42;
+        /* Green */
+        border: none;
+        border-radius: 10px;
+        color: white;
+        padding: 6px 18px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease 0s;
+        cursor: pointer;
+    }
+
+    .button:hover {
+        background-color: #dce0dc;
+        color: black;
+        box-shadow: 0px 15px 20px rgba(209, 228, 220, 0.4);
+        transform: translateY(-7px);
+    }
+
+    /* her hücre*/
+    /*taşmalarda sıkıntı var  */
+    .cell,
+    .cell-top,
+    .cell-last {
+        font-weight: 500;
+        padding: 4px;
+        cursor: pointer;
+        background-color: var(--backgroundcolor);
+        color: #0000FF;
+        text-align: left;
+        font-size: 13px;
+        padding-right: 5px;
+        border-top: var(--border);
+        border-left: var(--border);
+        width: 130px;
+        height: 100px;
+        overflow: hidden;
+    }
+
+    .not-defteri-textarea {
+  
+        resize: none;
+ 
+
+    }
+
+    /*tablonun kendisi*/
+    .calendar {
+
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.24);
+        margin: 25px;
+        /* padding-right: 20px; #f26430; */
+        overflow: hidden;
+        display: flex;
+        width: fit-content;
+        background-color: var(--containercolor);
+    }
+
+
+    .container {
+        margin: auto;
+        display: flex;
+        width: fit-content;
+        flex-direction: row;
+    }
+
+    .not-defteri-header {
+
+        justify-content: center;
+        flex-direction: row;
+        display: flex;
+        align-items: center;
+    }
+
+    .calendar-header {
+        /*default*/
+        /* background-image: url('/images/ilkbahar.jpg'); */
+        color: rgb(255, 255, 255);
+        background-size: cover;
+        margin-right: 2px;
+        justify-content: center;
+        width: 280px;
+        flex-direction: column;
+        display: flex;
+        align-items: center;
+    }
+    .cell-text{
+        overflow-wrap: anywhere;
+    }
+    .not-defteri {
+
+        overflow: clip ;
+        background-color: red;
+        width: 600px;
+        height: 800px;
+    }
+</style>
+
+<body>
+    <div id="myModal" class="modal">
+        <span class="save">&#128190;
+        </span>
+        <span class="close">&times;
+        </span>
+        <div class="modal-content">
+            <div class="not-defteri">
+                <div class="caption" id="not-defteri-1">
+                </div>
+                <div id="not-defteri-2"></div>
+                <textarea name="textarea" cols="60" rows="30" id="not-defteri-input" class="not-defteri-textarea"></textarea>
+                <!-- <input  id="not-defteri-input" class="not-defteri-input"> -->
+            </div>
+        </div>
+
+    </div>
+
+    <span class="container">
+        <div class="calendar">
+            <div class="calendar-header" , id="calendar-header">
+                <div>
+                    <h2 id="currentDate"></h2>
+                </div>
+                <div>
+                    <span>
+                        <button type="button" class="button" id="next-button" onclick="previousDate()">
+                            &#8249
+                        </button>
+                    </span>
+                    <span>
+                        <button class="button" id="previous-button" type="button" onclick="nextDate()">
+                            &#8250
+                        </button>
+                    </span>
+                </div>
+
+
+
+            </div>
+            <div>
+                <div>
+                    <div class="days">PZT</div>
+                </div>
+
+
+                <div class="cell-top" style="border-left: none;" id="pazartesi0">
+                    <div> </div>
+                </div>
+                <div class="cell" style="border-left: none;" id="pazartesi1">
+                    <p></p>
+                </div>
+                <div class="cell" style="border-left: none;" id="pazartesi2">
+                    <p></p>
+                </div>
+                <div class="cell" style="border-left: none;" id="pazartesi3">
+                    <p></p>
+                </div>
+                <div class="cell" style="border-left: none;" id="pazartesi4">
+                    <p></p>
+                </div>
+                <div style="border-bottom: none; border-left: none;" class="cell" id="pazartesi5">
+                    <p></p>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <div class="days">SAL</div>
+                </div>
+                <div class="cell-top" id="sali0">
+
+                    <p></p>
+                </div>
+                <div class="cell" id="sali1">1 <p></p>
+                </div>
+                <div class="cell" id="sali2">1
+                    <p></p>
+                </div>
+                <div class="cell" id="sali3">1 <p></p>
+                </div>
+                <div class="cell" id="sali4">1 <p></p>
+                </div>
+                <div style="border-bottom: none;" class="cell" id="sali5">1</div>
+            </div>
+            <div>
+                <div>
+                    <div class="days">ÇARŞ</div>
+                </div>
+                <div class="cell-top" id="carsamba0">1 <p class="cell-text"></p>
+                </div>
+                <div class="cell" id="carsamba1">1 <p></p>
+                </div>
+                <div id="carsamba2" class="cell">1 <p></p>
+                </div>
+                <div id="carsamba3" class="cell">1 <p></p>
+                </div>
+                <div id="carsamba4" class="cell">1 <p></p>
+                </div>
+                <div style="border-bottom: none;" id="carsamba5" class="cell">1 <p></p>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <div class="days">PERŞ</div>
+                </div>
+                <div class="cell-top" id="persembe0">1 <p></p>
+                </div>
+                <div class="cell" id="persembe1">1 <p></p>
+                </div>
+                <div id="persembe2" class="cell">1 <p></p>
+                </div>
+                <div id="persembe3" class="cell">1 <p></p>
+                </div>
+                <div id="persembe4" class="cell">1 <p></p>
+                </div>
+                <div style="border-bottom: none;" id="persembe5" class="cell">1 <p></p>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <div class="days">CUM</div>
+                </div>
+                <div class="cell-top" id="cuma0">1 <p></p>
+                </div>
+                <div class="cell" id="cuma1">1 <p></p>
+                </div>
+                <div id="cuma2" class="cell">1 <p></p>
+                </div>
+                <div id="cuma3" class="cell">1 <p></p>
+                </div>
+                <div id="cuma4" class="cell">1 <p></p>
+                </div>
+                <div style="border-bottom: none;" id="cuma5" class="cell">1 <p></p>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <div class="days">CMT</div>
+                </div>
+                <div class="cell-top" id="cumartesi0">1 <p></p>
+                </div>
+                <div class="cell" id="cumartesi1">1 <p></p>
+                </div>
+                <div class="cell" id="cumartesi2">1 <p></p>
+                </div>
+                <div class="cell" id="cumartesi3">1 <p></p>
+                </div>
+                <div class="cell" id="cumartesi4">1 <p></p>
+                </div>
+                <div style="border-bottom: none;" class="cell" id="cumartesi5">1 <p></p>
+                </div>
+
+            </div>
+            <div>
+
+                <div>
+                    <div class="days">PAZ</div>
+                </div>
+                <div id="pazar0" class="cell-top">1 <p></p>
+                </div>
+                <div id="pazar1" class="cell-last">1 <p></p>
+                </div>
+                <div id="pazar2" class="cell-last">1 <p></p>
+                </div>
+                <div id="pazar3" class="cell-last">1 <p></p>
+                </div>
+                <div id="pazar4" class="cell-last">1 <p></p>
+                </div>
+                <div style="border-bottom: none;" id="pazar5" class="cell-last">1 <p></p>
+                </div>
+            </div>
+        </div>
+
+    </span>
+
+</body>
+<!-- modül yapınca çalışmıyor -->
+<script src="takvim.js">
+
+
+</script>
+
+
+
+</html>

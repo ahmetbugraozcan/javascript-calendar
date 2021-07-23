@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<!--pazartesi salı çarş... için arrayler oluştur. arraylere göre günleri yerleştir.-->
+<!--Veritabanı için dizi içinden kontroledivez. örneğin pazartesi[1] değeri 12 mayıs 2021 e eşitse databasede bununla eşleşen değeri getir
+    ardından pazartesi[1] e eşdeğer olan id'li divin içeriği değişecek.-->
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    .cell-last {
+        border-right: 1px solid navy;
+
+    }
+
+    .cell-top {
+        border-top: 1px solid navy;
+    }
+
+    /* her hücre*/
+    .cell,
+    .cell-top,
+    .cell-last {
+        text-align: right;
+        padding-right: 6px;
+        text-overflow: clip;
+        white-space: nowrap;
+        overflow: hidden;
+        border-bottom: 1px solid navy;
+        border-left: 1px solid navy;
+        width: 100px;
+        height: 50px;
+    }
+
+
+    /*tablonun kendisi*/
+    .calendar {
+        margin: 25px;
+        padding: 12px;
+        display: flex;
+        width: fit-content;
+        background-color: red;
+    }
+
+
+    .container {
+        background-color: blue;
+        display: flex;
+        width: fit-content;
+        flex-direction: column;
+    }
+
+    .test {
+        display: flex;
+        justify-content: space-around;
+    }
+</style>
+
+<body>
+
+    <div class="container">
+
+        <div class="test">
+            <h1 id="currentDate"></h1>
+            <span><button type="button" onclick="previousDate()">Ayı geri al</button></span>
+            <span><button type="button" onclick="nextDate()">Ayı ileri al</button></span>
+        </div>
+        <div class="calendar">
+            <div>
+                <div>Pazartesi</div>
+                <div class="cell-top" id="pazartesi0">1</div>
+                <div class="cell" id="pazartesi1">1</div>
+                <div class="cell" id="pazartesi2">1</div>
+                <div class="cell" id="pazartesi3">1</div>
+                <div class="cell" id="pazartesi4">1</div>
+                <div class="cell" id="pazartesi5">1</div>
+            </div>
+            <div>
+                <div>Salı</div>
+                <div class="cell-top" id="sali0">1</div>
+                <div class="cell" id="sali1">1</div>
+                <div class="cell" id="sali2">1</div>
+                <div class="cell" id="sali3">1</div>
+                <div class="cell" id="sali4">1</div>
+                <div class="cell" id="sali5">1</div>
+            </div>
+            <div>
+                <div>Çarşamba</div>
+                <div class="cell-top" id="carsamba0">1</div>
+                <div class="cell" id="carsamba1">1</div>
+                <div id="carsamba2" class="cell">1</div>
+                <div id="carsamba3" class="cell">1</div>
+                <div id="carsamba4" class="cell">1</div>
+                <div id="carsamba5" class="cell">1</div>
+            </div>
+            <div>
+                <div>Perşembe</div>
+                <div class="cell-top" id="persembe0">1</div>
+                <div class="cell" id="persembe1">1</div>
+                <div id="persembe2" class="cell">1</div>
+                <div id="persembe3" class="cell">1</div>
+                <div id="persembe4" class="cell">1</div>
+                <div id="persembe5" class="cell">1</div>
+            </div>
+            <div>
+                <div>Cuma</div>
+                <div class="cell-top" id="cuma0">1</div>
+                <div class="cell" id="cuma1">1</div>
+                <div id="cuma2" class="cell">1</div>
+                <div id="cuma3" class="cell">1</div>
+                <div id="cuma4" class="cell">1</div>
+                <div id="cuma5" class="cell">1</div>
+            </div>
+            <div>
+                <div>Cumartesi</div>
+                <div class="cell-top" id="cumartesi0">1</div>
+                <div class="cell" id="cumartesi1">1</div>
+                <div class="cell" id="cumartesi2">1</div>
+                <div class="cell" id="cumartesi3">1</div>
+                <div class="cell" id="cumartesi4">1</div>
+                <div class="cell" id="cumartesi5">1</div>
+
+            </div>
+            <div>
+                <div>Pazar</div>
+                <div id="pazar0" class="cell-top" style="border-right: 1px solid navy;">1</div>
+                <div id="pazar1" class="cell-last">1</div>
+                <div id="pazar2" class="cell-last">1</div>
+                <div id="pazar3" class="cell-last">1</div>
+                <div id="pazar4" class="cell-last">1</div>
+                <div id="pazar5" class="cell-last">1</div>
+            </div>
+        </div>
+    </div>
+    <script src="takvim.js">
+        
+    </script>
+
+
+
+</html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<!--pazartesi salı çarş... için arrayler oluştur. arraylere göre günleri yerleştir.-->
+<!--Veritabanı için dizi içinden kontroledivez. örneğin pazartesi[1] değeri 12 mayıs 2021 e eşitse databasede bununla eşleşen değeri getir
+    ardından pazartesi[1] e eşdeğer olan id'li divin içeriği değişecek.-->
+
+<style>
+    /*bu rengi rgb(109, 109, 109) deaktifler için  de kullanabiliriz*/
+    :root {
+        /*üssttekilerden borderi al*/
+        --border: 3.5px solid white;
+        /* --border: 3.5px solid rgb(109, 109, 109);  */
+        --backgroundcolor: #F8E7EA;
+        /* --containercolor: #cc3c37; */
+        /* --containercolor: rgb(196, 180, 180); */
+        --containercolor: white;
+    }
+
+    body {
+        font-family: 'Roboto', sans-serif;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    .days {
+        background-color: blue;
+        padding: 8px;
+        color: white;
+        letter-spacing: 3px;
+        font-weight: bold;
+        font-size: 17px;
+
+    }
+
+    .days,
+    h2 {
+
+        text-align: center;
+    }
+
+
+    .cell-last {
+
+        border: none;
+
+
+    }
+
+    .cell-top {
+
+        border-top: var(--border);
+    }
+
+    .button {
+        /* butonları uzaklaştırıyor margin: 10px; */
+        box-shadow: 0px white;
+        font-size: 30px;
+        background-color: #0b5d7e;
+        /* Green */
+        border: none;
+        border-radius: 10px;
+        color: white;
+        padding: 6px 18px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease 0s;
+        cursor: pointer;
+    }
+
+    .button:hover {
+        background-color: #dce0dc;
+        color: black;
+        box-shadow: 0px 15px 20px rgba(32, 192, 128, 0.4);
+
+        transform: translateY(-7px);
+    }
+
+    /* her hücre*/
+    .cell,
+    .cell-top,
+    .cell-last {
+        padding: 4px;
+        cursor: pointer;
+        background-color: var(--backgroundcolor);
+        color: black;
+        text-align: left;
+        font-size: 13px;
+        padding-right: 5px;
+        text-overflow: clip;
+        white-space: nowrap;
+        overflow: hidden;
+        border-top: var(--border);
+        border-left: var(--border);
+        width: 130px;
+        height: 90px;
+    }
+
+
+    /*tablonun kendisi*/
+    .calendar {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.24);
+        margin: 25px;
+        /* padding-right: 20px; #f26430; */
+        overflow: hidden;
+
+
+        display: flex;
+        width: fit-content;
+        background-color: var(--containercolor);
+    }
+
+
+    .container {
+        display: flex;
+        width: fit-content;
+        flex-direction: row;
+    }
+
+    .not-defteri-header {
+
+        justify-content: center;
+        flex-direction: row;
+        display: flex;
+        align-items: center;
+    }
+
+    .calendarHeader {
+     
+        background-image: url('/images/yaz.jpg');
+        background-size: cover;
+        justify-content: center;
+        width: 200px;
+        flex-direction: column;
+        display: flex;
+        align-items: center;
+    }
+
+    .not-defteri {
+        display: none;
+        background-color: red;
+        width: 350px;
+    }
+</style>
+
+<body>
+
+    <span class="container">
+        <div class="calendar">
+            <div class="calendarHeader">
+                <div>
+                    <h2 id="currentDate"></h2>
+                </div>
+                <div>
+                    <span>
+                        <button type="button" class="button" id="next-button" onclick="previousDate()">
+                            &#8249
+                        </button>
+                    </span>
+                    <span>
+                        <button class="button" id="previous-button" type="button" onclick="nextDate()">
+                            &#8250
+                        </button>
+                    </span>
+                </div>
+
+
+
+            </div>
+            <div>
+                <div>
+                    <div class="days" style="   border-left: var(--border);">PZT</div>
+                </div>
+                <div class="cell-top" id="pazartesi0">1</div>
+                <div class="cell" id="pazartesi1">1</div>
+                <div class="cell" id="pazartesi2">1</div>
+                <div class="cell" id="pazartesi3">1</div>
+                <div class="cell" id="pazartesi4">1</div>
+                <div style="border-bottom: none; border-left: none;" class="cell" id="pazartesi5">1</div>
+            </div>
+            <div>
+                <div>
+                    <div class="days">SAL</div>
+                </div>
+                <div class="cell-top" id="sali0">1</div>
+                <div class="cell" id="sali1">1</div>
+                <div class="cell" id="sali2">1</div>
+                <div class="cell" id="sali3">1</div>
+                <div class="cell" id="sali4">1</div>
+                <div style="border-bottom: none;" class="cell" id="sali5">1</div>
+            </div>
+            <div>
+                <div>
+                    <div class="days">ÇARŞ</div>
+                </div>
+                <div class="cell-top" id="carsamba0">1</div>
+                <div class="cell" id="carsamba1">1</div>
+                <div id="carsamba2" class="cell">1</div>
+                <div id="carsamba3" class="cell">1</div>
+                <div id="carsamba4" class="cell">1</div>
+                <div style="border-bottom: none;" id="carsamba5" class="cell">1</div>
+            </div>
+            <div>
+                <div>
+                    <div class="days">PERŞ</div>
+                </div>
+                <div class="cell-top" id="persembe0">1</div>
+                <div class="cell" id="persembe1">1</div>
+                <div id="persembe2" class="cell">1</div>
+                <div id="persembe3" class="cell">1</div>
+                <div id="persembe4" class="cell">1</div>
+                <div style="border-bottom: none;" id="persembe5" class="cell">1</div>
+            </div>
+            <div>
+                <div>
+                    <div class="days">CUM</div>
+                </div>
+                <div class="cell-top" id="cuma0">1</div>
+                <div class="cell" id="cuma1">1</div>
+                <div id="cuma2" class="cell">1</div>
+                <div id="cuma3" class="cell">1</div>
+                <div id="cuma4" class="cell">1</div>
+                <div style="border-bottom: none;" id="cuma5" class="cell">1</div>
+            </div>
+            <div>
+                <div>
+                    <div class="days">CMT</div>
+                </div>
+                <div class="cell-top" id="cumartesi0">1</div>
+                <div class="cell" id="cumartesi1">1</div>
+                <div class="cell" id="cumartesi2">1</div>
+                <div class="cell" id="cumartesi3">1</div>
+                <div class="cell" id="cumartesi4">1</div>
+                <div style="border-bottom: none;" class="cell" id="cumartesi5">1</div>
+
+            </div>
+            <div>
+
+                <div>
+                    <div class="days">PAZ</div>
+                </div>
+                <div id="pazar0" class="cell-top">1</div>
+                <div id="pazar1" class="cell-last">1</div>
+                <div id="pazar2" class="cell-last">1</div>
+                <div id="pazar3" class="cell-last">1</div>
+                <div id="pazar4" class="cell-last">1</div>
+                <div style="border-bottom: none;" id="pazar5" class="cell-last">1</div>
+            </div>
+        </div>
+        <div id="not-defteri" class="not-defteri">
+            <div class="not-defteri-header">
+                <h1>Yapılacaklar</h1>
+                <button onclick="disableNotePad()">Kapat</button>
+            </div>
+            <div id="not-defteri-1"></div>
+            <div id="not-defteri-2"></div>
+
+        </div>
+    </span>
+
+    <script src="takvim.js">
+    </script>
+
+
+
+</html>

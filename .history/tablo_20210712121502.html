@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    .cell-last{
+        border-right: 1px solid navy;
+    }
+    .cell-top{
+border-top: 1px solid navy;
+    }
+    /* her hücre*/
+    .cell,.cell-top,.cell-last {
+        border-bottom: 1px solid navy;
+        border-left: 1px solid navy;
+        width: 100px;
+        height: 50px;
+    }
+
+   
+    /*tablonun kendisi*/
+    .calendar {
+        margin: 25px;
+        padding: 12px;
+        display: flex;
+        width: fit-content;
+        background-color: red;
+    }
+  
+    
+    .container {
+        background-color: blue;
+        display: flex;
+        width: fit-content;
+        flex-direction: column;
+    }
+    .test{
+        display: flex;
+        justify-content: space-around;
+    }
+</style>
+
+<body>
+
+    <div class="container">
+    
+        <div class="test">
+            <span>12 Temmuz 2021</span>
+            <span>Butonlar</span>
+        </div>
+        <div class="calendar">
+            <div>
+                <div>Pazartesi</div>
+                <div class="cell-top">1</div>
+                <div class="cell">1</div>
+                <div class="cell">1</div>
+                <div class="cell">1</div>
+                <div class="cell">1</div>
+                <div class="cell">1</div>
+            </div>
+            <div>
+                <div>Salı</div>
+                <div class="cell-top">1</div>
+                <div class="cell">1</div>
+                <div class="cell">1</div>
+                <div class="cell">1</div>
+                <div class="cell">1</div>
+                <div class="cell">1</div>
+            </div>
+            <div>
+                <div>Çarşamba</div>
+                <div class="cell-top">1</div>
+                <div class="cell">1</div>
+                <div class="cell">1</div>
+                <div class="cell">1</div>
+                <div class="cell">1</div>
+                <div class="cell">1</div>
+            </div>
+            <div>
+                <div>Perşembe</div>
+                <div class="cell-top">1</div>
+                <div class="cell">1</div>
+                <div class="cell">1</div>
+                <div class="cell">1</div>
+                <div class="cell">1</div>
+                <div class="cell">1</div>
+            </div>
+            <div>
+                <div>Cuma</div>
+                <div class="cell-top">1</div>
+                <div class="cell">1</div>
+                <div class="cell">1</div>
+                <div class="cell">1</div>
+                <div class="cell">1</div>
+                <div class="cell">1</div>
+            </div>
+            <div>
+                <div>Cumartesi</div>
+                <div class="cell-top">1</div>
+                <div class="cell">1</div>
+                <div class="cell">1</div>
+                <div class="cell">1</div>
+                <div class="cell">1</div>
+                <div class="cell">1</div>
+
+            </div>
+            <div>
+                <div>Pazar</div>
+                <div class="cell-top" >1</div>
+                <div class="cell-last" >2</div>
+                <div class="cell-last" >1</div>
+                <div class="cell-last" >1</div>
+                <div class="cell-last" >1</div>
+                <div class="cell-last" >1</div>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>

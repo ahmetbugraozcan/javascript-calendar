@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<!--pazartesi salı çarş... için arrayler oluştur. arraylere göre günleri yerleştir.-->
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    .cell-last {
+        border-right: 1px solid navy;
+
+    }
+
+    .cell-top {
+        border-top: 1px solid navy;
+    }
+
+    /* her hücre*/
+    .cell,
+    .cell-top,
+    .cell-last {
+        text-overflow: clip;
+        white-space: nowrap;
+        overflow: hidden;
+        border-bottom: 1px solid navy;
+        border-left: 1px solid navy;
+        width: 100px;
+        height: 50px;
+    }
+
+
+    /*tablonun kendisi*/
+    .calendar {
+        margin: 25px;
+        padding: 12px;
+        display: flex;
+        width: fit-content;
+        background-color: red;
+    }
+
+
+    .container {
+        background-color: blue;
+        display: flex;
+        width: fit-content;
+        flex-direction: column;
+    }
+
+    .test {
+        display: flex;
+        justify-content: space-around;
+    }
+</style>
+
+<body>
+
+    <div class="container">
+
+        <div class="test">
+            <span id="currentDate">12 Temmuz 2021</span>
+            <span id="firstDate">" "</span>
+            <span>Butonlar</span>
+        </div>
+        <div class="calendar">
+            <div>
+                <div>Pazartesi</div>
+                <div class="cell-top" id="pazartesi0">1</div>
+                <div class="cell" id="pazartesi1">1</div>
+                <div class="cell" id="pazartesi2">1</div>
+                <div class="cell" id="pazartesi3">1</div>
+                <div class="cell" id="pazartesi4">1</div>
+                <div class="cell" id="pazartesi5">1</div>
+            </div>
+            <div>
+                <div>Salı</div>
+                <div class="cell-top" id="sali0">1</div>
+                <div class="cell" id="sali1">1</div>
+                <div class="cell" id="sali2">1</div>
+                <div class="cell" id="sali3">1</div>
+                <div class="cell" id="sali4">1</div>
+                <div class="cell" id="sali5">1</div>
+            </div>
+            <div>
+                <div>Çarşamba</div>
+                <div class="cell-top" id="carsamba0">1</div>
+                <div class="cell" id="carsamba1">1</div>
+                <div id="carsamba2" class="cell">1</div>
+                <div id="carsamba3" class="cell">1</div>
+                <div id="carsamba4" class="cell">1</div>
+                <div id="carsamba5" class="cell">1</div>
+            </div>
+            <div>
+                <div>Perşembe</div>
+                <div class="cell-top" id="persembe0">1</div>
+                <div class="cell" id="persembe1">1</div>
+                <div id="persembe2" class="cell">1</div>
+                <div id="persembe3" class="cell">1</div>
+                <div id="persembe4" class="cell">1</div>
+                <div id="persembe5" class="cell">1</div>
+            </div>
+            <div>
+                <div>Cuma</div>
+                <div class="cell-top" id="cuma0">1</div>
+                <div class="cell" id="cuma1">1</div>
+                <div id="cuma2" class="cell">1</div>
+                <div id="cuma3" class="cell">1</div>
+                <div id="cuma4" class="cell">1</div>
+                <div id="cuma5" class="cell">1</div>
+            </div>
+            <div>
+                <div>Cumartesi</div>
+                <div class="cell-top" id="cumartesi0">1</div>
+                <div class="cell" id="cumartesi1">1</div>
+                <div class="cell" id="cumartesi2">1</div>
+                <div class="cell" id="cumartesi3">1</div>
+                <div class="cell" id="cumartesi4">1</div>
+                <div class="cell" id="cumartesi5">1</div>
+
+            </div>
+            <div>
+                <div>Pazar</div>
+                <div id="pazar0" class="cell-top" style="border-right: 1px solid navy;">1</div>
+                <div id="pazar1" class="cell-last">1</div>
+                <div id="pazar2" class="cell-last">1</div>
+                <div id="pazar3" class="cell-last">1</div>
+                <div id="pazar4" class="cell-last">1</div>
+                <div id="pazar5" class="cell-last">1</div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function daysInMonth(month, year) {
+            return new Date(year, month, 0).getDate();
+        }
+        const pazartesi = [];
+        const sali = [];
+        const carsamba = [];
+        const persembe = [];
+        const cuma = [];
+        const cumartesi = [];
+        const pazar = [];
+        const gunler = ["pazar", "pazartesi", "sali", "carsamba", "persembe", "cuma", "cumartesi"];
+
+
+        
+      
+        var baslanacakDate = new Date(2021,6,1);
+        var firstDate = baslanacakDate.getDay();
+        if(firstDate == 0){
+            firstDate = 7;
+        }
+        baslanacakDate.setDate((baslanacakDate.getDate())- (firstDate) );
+        var today = new Date();
+        var todayWithoutTime = new Date(today.getFullYear(), today.getMonth(), today.getDate() );
+        
+        
+        var counter = 0;
+        for (let i = 1; i <= 42; i++) {
+            baslanacakDate.setDate((baslanacakDate.getDate())+(1));      
+             // bir tabloda 42 gün var o ayın kaç çektiğini bul bu aydan geriye kaç sayacağız ona bul bu aydan ileri kaç sayacağız onu bul ve ona göre bir date oluştur.
+            //ardından bu for döngüsünü kullan
+            // console.log("a: " + baslanacakDate.toDateString());
+            // console.log("b: " + todayWithoutTime.toDateString() );
+            if(baslanacakDate.toDateString() ==  todayWithoutTime.toDateString()){
+                console.log("bugün eşitlendi : " + i);
+                counter = i;
+            }    
+        
+            switch (baslanacakDate.getDay()) {
+                case 0:
+                    pazar.push(baslanacakDate.toLocaleDateString()); 
+                    
+                    break;
+                case 1:
+                    pazartesi.push(baslanacakDate.toLocaleDateString()); break;
+                case 2:
+                    sali.push(baslanacakDate.toLocaleDateString()); break;
+                case 3:
+                    carsamba.push(baslanacakDate.toLocaleDateString()); break;
+
+                case 4:
+                    persembe.push(baslanacakDate.toLocaleDateString()); break;
+
+                case 5:
+                    cuma.push(baslanacakDate.toLocaleDateString()); break;
+
+                case 6:
+                    cumartesi.push(baslanacakDate.toLocaleDateString()); break;
+            }
+        }
+        var currentDate = new Date();
+        for (let i = 0; i < 6; i++) {
+            document.getElementById(`pazar${i}`).innerHTML = pazar[i];
+            document.getElementById(`pazartesi${i}`).innerHTML = pazartesi[i];
+            document.getElementById(`sali${i}`).innerHTML = sali[i];
+            document.getElementById(`carsamba${i}`).innerHTML = carsamba[i];
+            document.getElementById(`persembe${i}`).innerHTML = persembe[i];
+            document.getElementById(`cuma${i}`).innerHTML = cuma[i];
+            document.getElementById(`cumartesi${i}`).innerHTML = cumartesi[i];
+            if(pazar[i] == currentDate.toDateString()){
+                console.log("Bugün pazar");
+            }else if(pazartesi[i] == currentDate.toDateString()){
+                console.log("Bugün pazartesi");
+            }
+            else if(sali[i] == currentDate.toDateString()){
+                console.log("Bugün sali");
+            }
+            else if(carsamba[i] == currentDate.toDateString()){
+                console.log("Bugün carsamba");
+            }
+            else if(persembe[i] == currentDate.toDateString()){
+                console.log("Bugün persembe");
+            }
+            else if(cuma[i] == currentDate.toDateString()){
+                console.log("Bugün cuma");
+            }
+            else if(cumartesi[i] == currentDate.toDateString()){
+                console.log("Bugün cumartesi");
+            }
+        }   
+    
+        //bugünü al tüm documentleri dolaş stringi buna eşit olana eşitle
+    
+
+
+      //dateler seçimden gelecek şimdilik elle veriyorum
+        // var date = new Date(2021, 5, 1);
+        // //o ayın ilk gün değerini tutan değişken.
+        // var firstDayOfMonth = date.getDay();
+        // let sayac = 0;
+        // for (let i = 0; i < 6; i++){
+        //     if(i==0){
+        //        < var result = gunler.indexOf("pazartesi") - (firstDayOfMonth);>
+        //     if(result < 0){
+        //         pazartesi[i] = daysInMonth(2021,6) + result; 
+        //         document.getElementById(`pazartesi${i}`).innerHTML = pazartesi[i];
+        //     }else{
+        //             pazartesi[i] = result;
+
+        //         document.getElementById(`pazartesi${i}`).innerHTML = pazartesi[i];
+        //     }
+        //     }else{
+        //         var result = pazartesi[i-1] + 7;
+        //         if(result > daysInMonth(6,2021)){
+
+        //             if(sayac>=1){
+        //                 pazartesi[i] =  result- daysInMonth(6+sayac,2021) ;
+        //             }else{
+        //                 pazartesi[i] =  result- daysInMonth(6,2021) ;
+        //             }
+        //             sayac++;
+        //             document.getElementById(`pazartesi${i}`).innerHTML = pazartesi[i];
+        //         }else{
+        //             pazartesi[i] = pazartesi[i-1] + 7;
+        //             document.getElementById(`pazartesi${i}`).innerHTML = pazartesi[i];
+        //         }   
+        //     }
+        // }
+
+
+
+        // setDatesInCalendar("pazartesi");
+        // setDatesInCalendar("sali");
+        // setDatesInCalendar("carsamba");
+        // setDatesInCalendar("persembe");
+        // setDatesInCalendar("cuma");
+        // setDatesInCalendar("cumartesi");
+        // setDatesInCalendar("pazar");
+
+        // function setDatesInCalendar(day) {
+        //     let array = [];
+        //     switch (day) {
+        //         case "pazartesi":
+        //             array = pazartesi;
+        //             break;
+        //         case "sali":
+        //             array = sali;
+        //             break;
+        //         case "carsamba":
+        //             array = carsamba;
+        //             break;
+        //         case "persembe":
+        //             array = persembe;
+        //             break;
+        //         case "cuma":
+        //             array = cuma;
+        //             break;
+        //         case "cumartesi":
+        //             array = cumartesi;
+        //             break;
+        //         case "pazar":
+        //             array = pazar;
+        //             break;
+        //         default:
+        //             break;
+        //     }
+        //     var date = new Date(2021, 6, 1);
+        //     document.getElementById("firstDate").innerHTML = date.toLocaleDateString();
+        //     //o ayın ilk gün değerini tutan değişken.
+        //     var firstDayOfMonth = date.getDay();
+        //     let sayac = 0;
+        //     for (let i = 0; i < 6; i++) {
+        //         if (i == 0) {
+        //             var result = gunler.indexOf(`${day}`) - (firstDayOfMonth);
+        //             if (result < 0) {
+        //                 array[i] = daysInMonth(7,2021) + result;
+        //                 document.getElementById(`${day}${i}`).innerHTML = array[i];
+        //             } else {
+        //                 array[i] = result;
+        //                 document.getElementById(`${day}${i}`).innerHTML = array[i];
+        //             }
+        //         } else {
+        //             var result = array[i - 1] + 7;
+        //             if (result > daysInMonth(7, 2021)) {
+        //                 if (sayac >= 1) {
+        //                     //bir sonraki aya göre hesaplar
+        //                     array[i] = result - daysInMonth(7+ sayac, 2021);
+        //                 } else {
+        //                     array[i] = result - daysInMonth(7, 2021);
+        //                 }
+        //                 sayac++;
+        //                 document.getElementById(`${day}${i}`).innerHTML = array[i];
+        //             } else {
+        //                 array[i] = array[i - 1] + 7;
+        //                 document.getElementById(`${day}${i}`).innerHTML = array[i];
+        //             }
+        //         }
+        //     }
+
+        // }
+    </script>
+
+    <!-- <script>
+        var weekday = new Array(7);
+        
+        const pazartesi = [];
+        const sali = [];
+        const carsamba = [];
+        const persembe = [];
+        const cuma = [];
+        const cumartesi = [];
+        const pazar = [];
+        //-------------------------
+        weekday[0] = "Pazar";
+        weekday[1] = "Pazartesi";
+        weekday[2] = "Salı";
+        weekday[3] = "Çarşamba";
+        weekday[4] = "Perşembe";
+        weekday[5] = "Cuma";
+        weekday[6] = "Cumartesi";
+        //-------------------------
+        
+        var currentDate = new Date();
+        document.getElementById("currentDate").innerHTML = currentDate.toLocaleDateString();
+        var firstDayOfMonth = new Date(2021, 6, 1).getDay();
+        console.log(firstDayOfMonth);
+        switch(weekday[firstDayOfMonth]){
+            case weekday[0]:
+                pazar.push(1);
+                document.getElementById("pazar1").innerHTML =1;
+                pazartesi.push(2);
+                document.getElementById("pazartesi1").innerHTML =2;
+                sali.push(3);
+                document.getElementById("sali1").innerHTML =3;
+                carsamba.push(4);
+                document.getElementById("carsamba1").innerHTML =4;
+                persembe.push(5)
+                document.getElementById("persembe1").innerHTML =5;
+                cuma.push(6);
+                document.getElementById("cuma1").innerHTML =6;
+                cumartesi.push(7);
+                document.getElementById("cumartesi1").innerHTML =7;
+        
+                console.log("Pazar");
+            case weekday[1]:
+                console.log("Pazartesi");
+            case weekday[2]:
+                console.log("Salı");
+            case weekday[3]:
+                console.log("Çarşamba");
+            case weekday[4]:
+                console.log("Perşembe");
+                pazar.push(1);
+                document.getElementById("persembe1").innerHTML =1;
+                pazartesi.push(2);
+                document.getElementById("cuma1").innerHTML =2;
+                sali.push(3)
+                document.getElementById("cumartesi1").innerHTML =3;
+                carsamba.push(4);
+                document.getElementById("pazar1").innerHTML =4;
+                persembe.push(5)
+                document.getElementById("pazartesi2").innerHTML =5;
+                cuma.push(6);
+                document.getElementById("sali2").innerHTML =6;
+                cumartesi.push(7);
+                document.getElementById("carsamba2").innerHTML =7;
+                
+            case weekday[5]:
+                console.log("Cuma");   
+            case weekday[6]:
+                console.log("Cumartesi");   
+            default:
+                console.log("Default + " +  weekday[firstDayOfMonth]);
+               
+            
+        }
+
+
+        // document.getElementById("firstDate").innerHTML = weekday[firstDayOfMonth.getDay()];
+    </script> -->
+</body>
+
+</html>
