@@ -615,25 +615,25 @@ function setBackgroundImage() {
         case 0:
         case 1:
          
-            doc.style.backgroundImage = "url('/images/kis.png')";
+            doc.style.backgroundImage = "url('images/kis.png')";
             break;
         case 2:
         case 3:
         case 4:
         
-            doc.style.backgroundImage = "url('/images/ilkbahar.jpg')";
+            doc.style.backgroundImage = "url('images/ilkbahar.jpg')";
             break;
         case 5:
         case 6:
         case 7:
       
-            doc.style.backgroundImage = "url('/images/yaz.jpg')";
+            doc.style.backgroundImage = "url('images/yaz.jpg')";
             break;
         case 8:
         case 9:
         case 10:
         
-            doc.style.backgroundImage = "url('/images/sonbahar.jpg')";
+            doc.style.backgroundImage = "url('images/sonbahar.jpg')";
             break;
 
     }
