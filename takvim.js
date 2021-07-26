@@ -506,7 +506,7 @@ function operNotePad(text) {
                 key = element;
             }
         });
-        addTodoToDatabase(key, value);
+        addTodoToDatabase(key.localeDate, value);
         addChildToCell(value, text);
         paragraf1.innerHTML = readChildNode(text);
     }
