@@ -9,8 +9,8 @@ function daysInMonth(month, year) {
 var db;
 
 var today = new Date();
-var textColor = "rgb(218, 80, 80)";
-var defaultCellStyle = `font-weight:500;color:${textColor};`;
+// var textColor = "rgb(218, 80, 80)";
+// var defaultCellStyle = `font-weight:500;color:${textColor};`;
 var currentDate = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 0, 0, 0);
 //************************************************** */
 var allDates = [];
@@ -267,19 +267,35 @@ function fillCalendarFunction(){
     document.getElementById("currentDate").innerHTML = getMonthAsString(currentMonth) + " " + currentYear;
     for (let i = 0; i < 6; i++) {
       //--------------------------------------------------------------------  
-        document.getElementById(`pazartesi${i}`).style = defaultCellStyle;
-        document.getElementById(`sali${i}`).style = defaultCellStyle;
-        document.getElementById(`carsamba${i}`).style = defaultCellStyle;
-        document.getElementById(`persembe${i}`).style = defaultCellStyle;
-        document.getElementById(`cuma${i}`).style = defaultCellStyle;
-        document.getElementById(`cumartesi${i}`).style = defaultCellStyle;
-        document.getElementById(`pazar${i}`).style = defaultCellStyle;
+        document.getElementById(`pazartesi${i}`).style.fontWeight = 500;
+        document.getElementById(`sali${i}`).style.fontWeight = 500;
+        document.getElementById(`carsamba${i}`).style.fontWeight = 500;
+        document.getElementById(`persembe${i}`).style.fontWeight = 500;
+        document.getElementById(`cuma${i}`).style.fontWeight = 500;
+        document.getElementById(`cumartesi${i}`).style.fontWeight = 500;
+        document.getElementById(`pazar${i}`).style.fontWeight = 500;
+
+          document.getElementById(`pazartesi${i}`).style.color = "rgb(218, 80, 80)";
+        document.getElementById(`sali${i}`).style.color = "rgb(218, 80, 80)";
+        document.getElementById(`carsamba${i}`).style.color = "rgb(218, 80, 80)";
+        document.getElementById(`persembe${i}`).style.color = "rgb(218, 80, 80)";
+        document.getElementById(`cuma${i}`).style.color = "rgb(218, 80, 80)";
+        document.getElementById(`cumartesi${i}`).style.color = "rgb(218, 80, 80)";
+        document.getElementById(`pazar${i}`).style.color = "rgb(218, 80, 80)";
+        
+ 
+        //  document.getElementById(`pazartesi${i}`).color = 500;
+        // document.getElementById(`sali${i}`).color= 500;
+        // document.getElementById(`carsamba${i}`).color = 500;
+        // document.getElementById(`persembe${i}`).color = 500;
+        // document.getElementById(`cuma${i}`).style.color = 500;
+        // document.getElementById(`cumartesi${i}`).fontWeight = 500;
+        // document.getElementById(`pazar${i}`).fontWeight = 500;
 
         document.getElementById(`pazar${i}`).innerHTML = getDayAsString(pazar[i].localeDate);
         document.getElementById(`pazartesi${i}`).innerHTML= getDayAsString(pazartesi[i].localeDate);
         document.getElementById(`sali${i}`).innerHTML = getDayAsString(sali[i].localeDate);
         document.getElementById(`carsamba${i}`).innerHTML = getDayAsString(carsamba[i].localeDate);
-        //  document.getElementById(`carsamba${i}`).innerHTML = "<span style='color:blue;' class='w3-badge'>12</span>";
         document.getElementById(`persembe${i}`).innerHTML = getDayAsString(persembe[i].localeDate);
         document.getElementById(`cuma${i}`).innerHTML = getDayAsString(cuma[i].localeDate);
         document.getElementById(`cumartesi${i}`).innerHTML = getDayAsString(cumartesi[i].localeDate );
@@ -363,43 +379,16 @@ function fillCalendarFunction(){
 
        
     }
+    
    
-        for(var i = 0; i < 6; i++){
-
-
-            for(var j = 0; j < databaseResponse["rows"].length; j++){
-                if(`pazartesi${i}` + "-" + currentYear + "-" + currentMonth == (databaseResponse["rows"][j]["id"])){
-             
-                    addChildToCell(databaseResponse["rows"][j]["class"],`pazartesi${i}`)
+         for(var j = 0; j < databaseResponse["rows"].length; j++){
+        allDates.forEach(element => {
+                if(element.localeDate == (databaseResponse["rows"][j]["id"])){
+                    addChildToCell(databaseResponse["rows"][j]["class"],element.docID)
                 }
-                if(`sali${i}` + "-" + currentYear + "-" + currentMonth == (databaseResponse["rows"][j]["id"])){
-                 
-               
-                    addChildToCell(databaseResponse["rows"][j]["class"],`sali${i}`)
-                }
-                if(`carsamba${i}` + "-" + currentYear + "-" + currentMonth == (databaseResponse["rows"][j]["id"])){
-               
-                    addChildToCell(databaseResponse["rows"][j]["class"],`carsamba${i}`)
-                }
-                if(`persembe${i}` + "-" + currentYear + "-" + currentMonth == (databaseResponse["rows"][j]["id"])){
-             
-                    addChildToCell(databaseResponse["rows"][j]["class"],`persembe${i}`)
-                }
-                if(`cuma${i}` + "-" + currentYear + "-" + currentMonth == (databaseResponse["rows"][j]["id"])){
-                    addChildToCell(databaseResponse["rows"][j]["class"],`cuma${i}`)
-                }
-                if(`cumartesi${i}` + "-" + currentYear + "-" + currentMonth == (databaseResponse["rows"][j]["id"])){
-                    
-                    addChildToCell(databaseResponse["rows"][j]["class"],`cumartesi${i}`)
-                }
-                if(`pazar${i}` + "-" + currentYear + "-" + currentMonth == (databaseResponse["rows"][j]["id"])){
-                  
-                    addChildToCell(databaseResponse["rows"][j]["class"],`pazar${i}`)
-                }
-                
-            }
-            
-        }
+              
+        });
+    }
       
     
     
@@ -421,7 +410,6 @@ function isToday(date){
  function isFromThisMonth(yollanandate) {
 
 // önce bir dateye çevirmemiz gerekiyor ardından kontrolleri yapar ona göre tasarımını değiştiririz
-        console.log(yollanandate)
     
         
         if (yollanandate.getMonth() != currentMonth) {
@@ -510,8 +498,14 @@ function operNotePad(text) {
 
     savebutton.onclick = function (){
         databaseResponse = undefined;
-        var key = text + "-" + currentYear + "-" + currentMonth ;
+      
+        var key;
         var value = document.getElementById("not-defteri-input").value;
+        allDates.forEach(element => {
+            if(element.docID == text){
+                key = element;
+            }
+        });
         addTodoToDatabase(key, value);
         addChildToCell(value, text);
         paragraf1.innerHTML = readChildNode(text);
@@ -520,12 +514,17 @@ function operNotePad(text) {
     deleteButton.onclick = function(){
         // onclick="return confirm('Are you sure?')"
         databaseResponse = undefined;
-        var key = text + "-" + currentYear + "-" + currentMonth ;
+        var key;
+        allDates.forEach(element => {
+            if(element.docID == text){
+                key = element;
+            }
+        });
         //hücreyi boş stringe dönüştür
          addChildToCell("", text);
          //inputu temizle
          paragraf2.value = "";
-        deleteTodo(key);
+        deleteTodo(key.localeDate);
     }
 
  
